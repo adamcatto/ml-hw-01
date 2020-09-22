@@ -1,4 +1,9 @@
+from timeit import timeit
+
 import numpy as np
+from numpy.random import rand
+from matplotlib import pyplot as plt
+from tqdm import tqdm
 
 from utils import covar, sd
 
@@ -14,14 +19,39 @@ def compute_correlation_matrix_loop(x):
 
 def compute_correlation_matrix_ops(x):
     num_vectors = x.shape[0]
-    y = x - np.matmul(np.ones((num_vectors, num_vectors)), x)/num_vectors
-    vcv = (np.matmul(np.transpose(y), y)/num_vectors)
+    y = np.subtract(x, np.divide(np.matmul(np.ones((num_vectors, num_vectors)), x), num_vectors))
+    vcv = np.divide(np.matmul(np.transpose(y), y), num_vectors)
     d = np.linalg.inv(np.sqrt(np.diag(np.diag(vcv))))
-    cov_matrix = np.matmul(np.matmul(d, vcv), d)
-    return cov_matrix
+    corr_matrix = np.matmul(np.matmul(d, vcv), d)
+    return corr_matrix
 
 
-r = np.random.rand(10, 9)
+def comparison(size=None):
+    if size is None:
+        size = int(input('Up to what size matrix (integer greater than 1) would you like to compare? '))
 
-print(compute_correlation_matrix_loop(r))
-print(compute_correlation_matrix_ops(r))
+    assert size > 1
+    sizes = [i for i in range(2, size + 1)]
+    loop_times = []
+    mat_ops_times = []
+
+    for i in tqdm(range(2, size + 1)):
+        r = rand(i, i)
+
+        loop_time = timeit(lambda: compute_correlation_matrix_loop(r), number=1)
+        mat_ops_time = timeit(lambda: compute_correlation_matrix_ops(r), number=1)
+
+        loop_times.append(loop_time)
+        mat_ops_times.append(mat_ops_time)
+
+    plt.xlabel('Matrix Size')
+    plt.ylabel('Running Times')
+    plt.plot(sizes, loop_times, label='Loop')
+    plt.plot(sizes, mat_ops_times, label='Matrix Operations')
+    plt.legend()
+    plt.savefig('comparison-problem-02.png')
+    plt.show()
+
+
+if __name__ == '__main__':
+    comparison()
