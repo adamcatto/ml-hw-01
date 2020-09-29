@@ -2,7 +2,7 @@
 
 1. Finished all problems – 01, 02, and 03
 
-2. Assignment completed on MacOS, using a Python 3.8 virtual environment, external packages NumPy and scikit-learn.
+2. Assignment completed on MacOS, using Python 3 and JupyterLab, external packages NumPy, matplotlib, tqdm, and scikit-learn.
 
 3. Some resources that helped me:
 
