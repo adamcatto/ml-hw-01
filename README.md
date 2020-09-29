@@ -15,3 +15,5 @@
   + [StackExchange post on computing pairwise Euclidean distance matrix using only matrix operations](https://math.stackexchange.com/questions/3147549/compute-the-pairwise-euclidean-distance-matrix)
 
   + [Computing correlation matrices using only matrix operations](https://stattrek.com/matrix-algebra/covariance-matrix.aspx)
+
+  + [Bar Charts in Matplotlib](https://benalexkeen.com/bar-charts-in-matplotlib/)
