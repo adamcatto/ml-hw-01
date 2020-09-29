@@ -9,6 +9,7 @@ import math
 from typing import Tuple
 
 import numpy as np
+from tqdm import tqdm
 
 
 def pairwise_distance_numpy(v1, v2):
@@ -43,13 +44,17 @@ def covar(x, position: Tuple[int, int]):
         sample_mean += x[:, i]
     sample_mean /= num_vectors"""
     sample_mean = 0
-    for i in range(num_vectors):
+    for i in tqdm(range(num_vectors)):
         sample_mean += x[i][position[1]]
     sample_mean /= num_vectors
+    print('position: ' + str(position))
+    print('mean: ' + str(sample_mean))
     s = 0
     for i in range(num_vectors):
         s += (x[i][position[0]] - sample_mean) * (x[i][position[1]] - sample_mean)
-    return s/(num_vectors-1)
+    payload = s/num_vectors
+    print('covariance: ' + str(payload))
+    return payload
 
 
 def sd(x, idx):
