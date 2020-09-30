@@ -36,26 +36,22 @@ def pairwise_distance_loop(v1, v2):
     return math.sqrt(payload)
 
 
-def covar(x, position: Tuple[int, int]):
+def variance_(x, position: Tuple[int, int]):
     num_vectors = x.shape[0]
-    # feature_dim = x.shape[1]
     """sample_mean = np.zeros(num_vectors)
     for i in range(num_vectors):
         sample_mean += x[:, i]
     sample_mean /= num_vectors"""
     sample_mean = 0
-    for i in tqdm(range(num_vectors)):
+    for i in range(num_vectors):
         sample_mean += x[i][position[1]]
     sample_mean /= num_vectors
-    print('position: ' + str(position))
-    print('mean: ' + str(sample_mean))
     s = 0
     for i in range(num_vectors):
         s += (x[i][position[0]] - sample_mean) * (x[i][position[1]] - sample_mean)
     payload = s/num_vectors
-    print('covariance: ' + str(payload))
     return payload
 
 
 def sd(x, idx):
-    return math.sqrt(covar(x, (idx, idx)))
+    return math.sqrt(variance_(x, (idx, idx)))

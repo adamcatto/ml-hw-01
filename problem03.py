@@ -40,18 +40,17 @@ breast_cancer_correlation_matrix_ops_time = timeit(lambda: compute_correlation_m
 print(breast_cancer_correlation_matrix_ops_time)
 
 
-"""
 digits_pairwise_distance_loop_time = timeit(lambda: compute_pairwise_distance_loop(digits_data), number=1)
 print(digits_pairwise_distance_loop_time)
 digits_pairwise_distance_ops_time = timeit(lambda: compute_pairwise_distance_ops(digits_data), number=1)
 print(digits_pairwise_distance_ops_time)
-"""
+
 digits_correlation_matrix_loop_time = timeit(lambda: compute_correlation_matrix_loop(digits_data), number=1)
 print(digits_correlation_matrix_loop_time)
 digits_correlation_matrix_ops_time = timeit(lambda: compute_correlation_matrix_ops(digits_data), number=1)
 print(digits_correlation_matrix_ops_time)
 
-"""
+
 distance_matrix = [
     [iris_pairwise_distance_loop_time, iris_pairwise_distance_ops_time],
     [breast_cancer_pairwise_distance_loop_time, breast_cancer_pairwise_distance_ops_time],
@@ -64,7 +63,15 @@ correlation_matrix = [
     [digits_correlation_matrix_loop_time, digits_correlation_matrix_ops_time]
 ]
 
-print(distance_matrix)
-print('\n\n')
-print(correlation_matrix)
-"""
+print('Distance Matrix Running Times:\n\n')
+for i, row in enumerate(distance_matrix):
+    print(row)
+print('\n\n================\n\nCorrelation Matrix Running Times:\n\n')
+for i, row in enumerate(correlation_matrix):
+    print(row)
+    
+print("""\n\n================\n\nWith schema:\n\n
+    [iris_loop_time, iris_ops_time]
+    [breast_cancer_loop_time, breast_cancer_ops_time]
+    [digits_loop_time, digits_ops_time]\n\n""")
+

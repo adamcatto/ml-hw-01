@@ -5,7 +5,7 @@ from numpy.random import rand
 from matplotlib import pyplot as plt
 from tqdm import tqdm
 
-from utils import covar, sd
+from utils import variance_, sd
 
 
 def compute_correlation_matrix_loop(x):
@@ -13,11 +13,10 @@ def compute_correlation_matrix_loop(x):
     z = np.zeros((feature_dim, feature_dim))
     for i in range(feature_dim):
         for j in range(feature_dim):
-            if covar_ := covar(x, (i, j)) != 0:
-                z[i][j] = covar_ / (sd(x, i) * sd(x, j))
+            if (sd_i := sd(x, i) != 0) and (sd_j := sd(x, j) != 0):
+                z[i][j] = variance_(x, (i, j)) / (sd_i * sd_j)
             else:
                 z[i][j] = 0
-                print([x[k][i] for k in range(x.shape[0])], [x[m][j] for m in range(x.shape[0])])
     return z
 
 

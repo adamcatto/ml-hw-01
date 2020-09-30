@@ -62,7 +62,7 @@ def compute_pairwise_distance_loop(x):
             z[i][j] = 0.0 if i == j else pairwise_distance_loop(x[i], x[j])
     return z
 
-
+"""
 def compute_pairwise_distance_numpy(x):
     """
 
@@ -82,6 +82,7 @@ def compute_pairwise_distance_numpy(x):
             # i = j, so best to just impute it to zero manually.
             z[i][j] = 0.0 if i == j else pairwise_distance_numpy(x[i], x[j])
     return z
+"""
 
 
 def compute_pairwise_distance_ops(x):
